@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import com.pdrozz.pulsemusicplayer.R;
 
-public class MainFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(
