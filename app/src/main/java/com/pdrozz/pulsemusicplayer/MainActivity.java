@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
-import com.pdrozz.pulsemusicplayer.ui.main.PagerAdapterTabs;
+import com.pdrozz.pulsemusicplayer.adapter.PagerAdapterTabs;
 
 public class MainActivity extends AppCompatActivity {
 

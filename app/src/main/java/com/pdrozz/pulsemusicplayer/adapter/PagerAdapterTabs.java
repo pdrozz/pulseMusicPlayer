@@ -1,4 +1,4 @@
-package com.pdrozz.pulsemusicplayer.ui.main;
+package com.pdrozz.pulsemusicplayer.adapter;
 
 import android.content.Context;
 
@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.pdrozz.pulsemusicplayer.R;
+import com.pdrozz.pulsemusicplayer.fragment.MainFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
