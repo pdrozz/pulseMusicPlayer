@@ -1,12 +1,24 @@
 package com.pdrozz.pulsemusicplayer.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlaylistModel {
 
+    public static List<PlaylistModel> listPlaylist=new ArrayList<>();
+
     private String name, desc, picture, createDate;
     private List<MusicModel> listMusic;
     private int id;
+    private int ACTION=0;
+
+    public int getACTION() {
+        return ACTION;
+    }
+
+    public void setACTION(int ACTION) {
+        this.ACTION = ACTION;
+    }
 
     public String getName() {
         return name;
@@ -56,6 +68,5 @@ public class PlaylistModel {
         this.id = id;
     }
 
-    public PlaylistModel() {
-    }
+
 }

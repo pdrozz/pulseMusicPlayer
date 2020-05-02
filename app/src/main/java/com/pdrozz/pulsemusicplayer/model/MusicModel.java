@@ -1,19 +1,15 @@
 package com.pdrozz.pulsemusicplayer.model;
 
-import com.pdrozz.pulsemusicplayer.widget.FavButton;
+import com.pdrozz.pulsemusicplayer.widget.favbutton.FavButton;
+
+import java.util.List;
 
 public class MusicModel {
 
     private String name,path,artist,album,duration;
-    private int like= FavButton.UNLIKED;
 
-    public int getLike() {
-        return like;
-    }
 
-    public void setLike(int like) {
-        this.like = like;
-    }
+    public static List<MusicModel> listMusic;
 
     public String getName() {
         return name;
