@@ -7,6 +7,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,14 +16,16 @@ import android.view.View;
 import com.pdrozz.pulsemusicplayer.R;
 import com.pdrozz.pulsemusicplayer.adapter.PagerAdapterTabs;
 import com.pdrozz.pulsemusicplayer.utils.PermissionUtil;
-import com.pdrozz.pulsemusicplayer.widget.FavButton;
 
 public class MainActivity extends AppCompatActivity {
 
-    ViewPager viewPager;
-    TabLayout tabs;
-    FloatingActionButton fabMain;
+    private ViewPager viewPager;
+    private TabLayout tabs;
+    private FloatingActionButton fabMain;
     String[] permissoes={Manifest.permission.READ_EXTERNAL_STORAGE};
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void configRecycler(){}
 
     private void configFabMainClickListener(){
         fabMain.setOnClickListener(new View.OnClickListener() {
