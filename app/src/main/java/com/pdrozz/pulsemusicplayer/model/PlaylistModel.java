@@ -1,9 +1,12 @@
 package com.pdrozz.pulsemusicplayer.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaylistModel {
+public class PlaylistModel implements Parcelable {
 
     public static List<PlaylistModel> listPlaylist=new ArrayList<>();
 
@@ -11,6 +14,31 @@ public class PlaylistModel {
     private List<MusicModel> listMusic;
     private int id;
     private int ACTION=0;
+
+    public PlaylistModel(Parcel in) {
+        name = in.readString();
+        desc = in.readString();
+        picture = in.readString();
+        createDate = in.readString();
+        id = in.readInt();
+        ACTION = in.readInt();
+    }
+
+    public static final Creator<PlaylistModel> CREATOR = new Creator<PlaylistModel>() {
+        @Override
+        public PlaylistModel createFromParcel(Parcel in) {
+            return new PlaylistModel(in);
+        }
+
+        @Override
+        public PlaylistModel[] newArray(int size) {
+            return new PlaylistModel[size];
+        }
+    };
+
+    public PlaylistModel() {
+
+    }
 
     public int getACTION() {
         return ACTION;
@@ -69,4 +97,18 @@ public class PlaylistModel {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(desc);
+        dest.writeString(picture);
+        dest.writeString(createDate);
+        dest.writeInt(id);
+        dest.writeInt(ACTION);
+    }
 }
