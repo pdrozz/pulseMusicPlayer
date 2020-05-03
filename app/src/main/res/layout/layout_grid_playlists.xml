@@ -7,7 +7,10 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="200dp"
+        android:layout_margin="6dp"
+        app:cardCornerRadius="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -26,7 +29,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                app:srcCompat="@drawable/bg_gradient" />
 
             <TextView
                 android:id="@+id/textViewNamePlaylist"
@@ -34,7 +37,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginBottom="8dp"
+                android:background="@drawable/bg_gray_alpha"
+                android:padding="2dp"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
                 android:text="EDM"
+                android:textColor="#FFF"
                 android:textSize="26sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/buttonPlaylist"
@@ -47,11 +55,21 @@
                 android:id="@+id/buttonPlaylist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bg_button_white"
                 android:drawableStart="@drawable/ic_play"
+                android:drawableTint="@color/colorPrimaryDark"
+                android:paddingEnd="8dp"
                 android:text="play"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+
+                android:layout_marginEnd="8dp"
+                app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textViewNamePlaylist"
                 app:layout_constraintTop_toBottomOf="@+id/textViewNamePlaylist" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
