@@ -95,6 +95,7 @@ public class AdapterMusicFiles extends RecyclerView.Adapter<AdapterMusicFiles.Me
 
     public class MeuViewHolder extends RecyclerView.ViewHolder{
         ImageView imageMusic;
+
         TextView name,artist,duration;
         ImageButton favButton;
         CheckBox checkBox;
