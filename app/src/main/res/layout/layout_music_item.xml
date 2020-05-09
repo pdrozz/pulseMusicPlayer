@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="6dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:background="#000"
     >
 
     <androidx.cardview.widget.CardView
@@ -28,14 +30,20 @@
         android:id="@+id/textMusicName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Como se fosse a primeira vez"
+        android:layout_marginStart="8dp"
 
         android:layout_marginTop="4dp"
-        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:text="Como se fosse a primeira vez"
 
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/background_light"
         android:textSize="18sp"
+
+        android:ellipsize="marquee"
+        android:fadingEdge="horizontal"
+        android:marqueeRepeatLimit="10"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
 
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,35 +51,53 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-    android:id="@+id/textArtist"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:text="Pedrox"
-    android:textSize="14sp"
-    android:layout_marginTop="4dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp"
-    android:textStyle="bold"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toEndOf="@id/cardView"
-    app:layout_constraintTop_toBottomOf="@id/textMusicName" />
+        android:id="@+id/textArtist"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:text="Pedrox"
+        android:textColor="@color/GrayWhite"
+        android:textSize="14sp"
+        android:textStyle="bold"
+
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:fadingEdge="horizontal"
+        android:marqueeRepeatLimit="10"
+        android:scrollHorizontally="true"
+
+        app:layout_constraintEnd_toStartOf="@+id/adicionar"
+        app:layout_constraintStart_toEndOf="@id/cardView"
+        app:layout_constraintTop_toBottomOf="@id/textMusicName" />
 
     <TextView
         android:id="@+id/textDuration"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="3:43"
-
-        android:textSize="16sp"
+        android:layout_marginStart="8dp"
 
         android:layout_marginTop="4dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
 
+        android:layout_marginEnd="8dp"
+        android:text="3:43"
+        android:textColor="@color/GrayWhite"
+
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/cardView"
         app:layout_constraintTop_toBottomOf="@id/textArtist" />
+
+    <CheckBox
+        android:id="@+id/adicionar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:buttonTint="@color/GrayWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#121212"
     tools:context=".activity.PlayerActivity">
 
     <androidx.viewpager.widget.ViewPager
@@ -24,125 +25,110 @@
         android:id="@+id/btnPlayPause"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginBottom="56dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_play_pause_oval_corners"
+        android:backgroundTint="@color/colorAccent"
+        android:elevation="2dp"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toStartOf="@+id/btnNext"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnPrevious"
         app:layout_constraintTop_toBottomOf="@+id/seekTime"
-        app:srcCompat="@drawable/bg_gradient" />
+        app:srcCompat="@drawable/ic_pause" />
 
     <ImageButton
         android:id="@+id/btnNext"
         android:layout_width="70dp"
         android:layout_height="70dp"
+        android:background="@drawable/bg_button_transparent_to_white"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@+id/btnPlayPause"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnPlayPause"
         app:layout_constraintTop_toTopOf="@+id/btnPlayPause"
-        app:srcCompat="@drawable/bg_gradient" />
+        app:srcCompat="@drawable/ic_next" />
 
     <ImageButton
         android:id="@+id/btnPrevious"
         android:layout_width="70dp"
         android:layout_height="70dp"
+        android:background="@drawable/bg_button_transparent_to_white"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@+id/btnPlayPause"
         app:layout_constraintEnd_toStartOf="@+id/btnPlayPause"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btnPlayPause"
-        app:srcCompat="@drawable/bg_gradient" />
+        app:srcCompat="@drawable/ic_previous" />
 
     <ImageButton
         android:id="@+id/btnShufle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_button_transparent_to_white"
+        android:padding="2dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btnNext"
         app:layout_constraintStart_toEndOf="@+id/btnPlayPause"
         app:layout_constraintTop_toBottomOf="@+id/btnPlayPause"
-        app:srcCompat="@drawable/bg_gradient" />
-
-    <TextView
-        android:id="@+id/txtMusicName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/bg_gray_alpha"
-        android:padding="8dp"
-        android:shadowColor="@color/colorPrimary"
-        android:text="Music Name feat Music"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/txtArtist"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintVertical_bias="0.45"
+        app:srcCompat="@drawable/ic_shuffle_black_24dp" />
 
     <TextView
         android:id="@+id/txtTotalTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="3:53"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/cardview_light_background"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/seekTime"
-        app:layout_constraintTop_toTopOf="@+id/seekTime"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="@+id/guideline55" />
 
     <TextView
         android:id="@+id/txtCurrentTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0:34"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/seekTime"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/seekTime"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/txtArtist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/bg_gray_alpha"
-        android:padding="6dp"
-        android:text="ARTIST"
+        android:layout_marginTop="8dp"
+        android:text="0:00"
         android:textColor="@color/cardview_light_background"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/guideline55"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="@+id/seekTime"
+        app:layout_constraintTop_toTopOf="@+id/guideline55" />
 
     <ImageButton
         android:id="@+id/btnLoop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_button_transparent_to_white"
+        android:padding="2dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnPlayPause"
         app:layout_constraintStart_toStartOf="@+id/btnPrevious"
         app:layout_constraintTop_toBottomOf="@+id/btnPlayPause"
-        app:srcCompat="@drawable/bg_button_white" />
+        app:layout_constraintVertical_bias="0.45"
+        app:srcCompat="@drawable/ic_loop" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline55"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.55" />
+        app:layout_constraintGuide_percent="0.6" />
 
     <SeekBar
         android:id="@+id/seekTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="12dp"
+        android:progressBackgroundTint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewPagerPlayer" />
 
     <androidx.constraintlayout.widget.Guideline

@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_margin="6dp"
+        android:backgroundTint="@color/colorBackground"
         app:cardCornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,8 +28,10 @@
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
                 app:srcCompat="@drawable/bg_gradient" />
 
             <TextView
@@ -36,7 +39,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:autoSizeMaxTextSize="26sp"
+                android:autoSizeMinTextSize="14sp"
+                android:autoSizeTextType="uniform"
                 android:background="@drawable/bg_gray_alpha"
                 android:padding="2dp"
                 android:paddingStart="6dp"
@@ -45,32 +53,45 @@
                 android:textColor="#FFF"
                 android:textSize="26sp"
                 android:textStyle="bold"
+
+
                 app:layout_constraintBottom_toTopOf="@+id/buttonPlaylist"
+                app:layout_constraintEnd_toEndOf="@+id/imageViewPlaylist"
+                app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.8"
                 app:layout_constraintVertical_chainStyle="packed" />
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.4" />
+
             <Button
                 android:id="@+id/buttonPlaylist"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_button_white"
                 android:drawableStart="@drawable/ic_play"
-                android:drawableTint="@color/colorPrimaryDark"
+                android:drawableTint="@color/mcolorPrimaryDark"
                 android:paddingEnd="8dp"
                 android:text="play"
-                android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold"
+                android:textColor="@color/mcolorPrimaryDark"
 
-                android:layout_marginEnd="8dp"
-                app:layout_constraintHorizontal_bias="0"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="@+id/textViewNamePlaylist"
                 app:layout_constraintTop_toBottomOf="@+id/textViewNamePlaylist" />
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

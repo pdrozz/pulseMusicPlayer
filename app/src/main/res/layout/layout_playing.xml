@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    tools:background="#000">
+
+    <ImageButton
+        android:id="@+id/btnPlayPause"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@android:color/transparent"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar"
+        app:srcCompat="@drawable/ic_pause" />
+
+    <ImageButton
+        android:id="@+id/btnLike"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@android:color/transparent"
+        android:padding="4dp"
+        android:scaleType="centerCrop"
+
+        app:layout_constraintEnd_toStartOf="@id/btnNext"
+        app:layout_constraintTop_toTopOf="@+id/btnPlayPause"
+        app:srcCompat="@drawable/ic_favorite" />
+
+    <ImageButton
+        android:id="@+id/btnNext"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@android:color/transparent"
+        android:scaleType="centerCrop"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnPlayPause"
+        app:srcCompat="@drawable/ic_next" />
+
+    <TextView
+        android:id="@+id/txtMusicName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:ellipsize="marquee"
+        android:fadingEdge="horizontal"
+        android:marqueeRepeatLimit="2"
+        android:scrollHorizontally="true"
+
+
+        android:singleLine="true"
+        android:text="Music name"
+        android:textColor="@color/GrayWhite"
+        android:textSize="18sp"
+
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/btnPlayPause"
+        app:layout_constraintEnd_toStartOf="@+id/btnLike"
+        app:layout_constraintHorizontal_bias="0"
+
+
+        app:layout_constraintStart_toEndOf="@+id/btnPlayPause"
+        app:layout_constraintTop_toTopOf="@+id/btnPlayPause"
+        app:layout_constraintVertical_bias="0.2" />
+
+    <TextView
+        android:id="@+id/txtArtist"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:ellipsize="marquee"
+
+        android:fadingEdge="horizontal"
+
+
+        android:marqueeRepeatLimit="2"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:text="Artist"
+
+        android:textColor="@color/GrayWhite"
+        app:layout_constraintEnd_toStartOf="@+id/btnLike"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/btnPlayPause"
+        app:layout_constraintTop_toBottomOf="@id/txtMusicName" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="4dp"
+        android:indeterminate="false"
+        android:max="100"
+        android:padding="0dp"
+
+        android:scaleY="2"
+
+        android:progress="63"
+
+        android:progressBackgroundTint="@color/colorBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
