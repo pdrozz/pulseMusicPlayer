@@ -51,20 +51,37 @@ public class DAOplaylist {
 
     public boolean inserirNaPlaylist(String namePlaylist, MusicModel music){
         ContentValues cv=new ContentValues();
-        cv.put("name",music.getName());
-        cv.put("path",music.getPath());
+        cv.put("nome",music.getName());
+        cv.put("uri",music.getPath());
         cv.put("artist",music.getArtist());
         cv.put("album",music.getAlbum());
         cv.put("duration",music.getDuration());
         try{
             write.insert(namePlaylist,null,cv);
-            write.close();
+            Log.i("error sqlite", "inserido com sucesso"+music.getName() );
             return true;
         }catch (Exception e){
-            Log.e("error sqlite", "inserirNaPlaylist: "+e );
-            write.close();
+            Log.i("error sqlite", "inserirNaPlaylist: "+e );
             return false;
         }
+    }
+
+    public List<MusicModel> getPlaylistItems(String namePlaylist){
+        List<MusicModel> listMusic=new ArrayList<>();
+        String sql="SELECT * FROM "+namePlaylist+";";
+        Cursor cursor=read.rawQuery(sql,null);
+        while (cursor.moveToNext()){
+            MusicModel model=new MusicModel();
+            model.setId(cursor.getInt(cursor.getColumnIndex("id")));
+            model.setName(cursor.getString(cursor.getColumnIndex("nome")));
+            Log.i("DAO", "getPlaylistItems: inserindo: "+model.getName());
+            model.setArtist(cursor.getString(cursor.getColumnIndex("artist")));
+            model.setDuration(cursor.getString(cursor.getColumnIndex("duration")));
+            model.setPath(cursor.getString(cursor.getColumnIndex("uri")));
+            listMusic.add(model);
+        }
+        cursor.close();
+        return listMusic;
     }
 
     public List<PlaylistModel> getPlaylists(){
@@ -101,7 +118,10 @@ public class DAOplaylist {
             write.close();
             return false;
         }
+    }
 
-
+    private String validade(String name){
+        name=name.replace(" ","_");
+        return name;
     }
 }

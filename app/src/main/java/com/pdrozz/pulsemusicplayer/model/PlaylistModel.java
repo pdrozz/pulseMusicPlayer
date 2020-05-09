@@ -13,7 +13,10 @@ public class PlaylistModel implements Parcelable {
     private String name, desc, picture, createDate;
     private List<MusicModel> listMusic;
     private int id;
-    private int ACTION=0;
+    public final static int ACTION_CREATE=1;
+    public final static int ACTION_DEFAULT=0;
+    private int ACTION=ACTION_DEFAULT;
+
 
     public PlaylistModel(Parcel in) {
         name = in.readString();

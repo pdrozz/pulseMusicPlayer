@@ -18,7 +18,7 @@ public class SqlHelper  extends SQLiteOpenHelper {
 
     public static String sqlPlaylistItems=" (id INTEGER PRIMARY KEY AUTOINCREMENT," +
             " nome VARCHAR not null," +
-            " artist VARCHAR, duration varchar, uri VARCHAR not null)";
+            " artist VARCHAR, duration varchar, uri VARCHAR not null,album VARCHAR)";
 
     public SqlHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -32,6 +32,5 @@ public class SqlHelper  extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
     }
 }

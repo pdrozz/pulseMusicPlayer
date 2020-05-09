@@ -36,23 +36,39 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
         configWidgets(root);
         configRecycler();
-        makePlaylist();
-        configRecyclerItemClick();
+
 
 
         adapterPlaylist=new AdapterPlaylist(listPlaylist,getActivity());
         recyclerView.setAdapter(adapterPlaylist);
-        recyclerView.addOnItemTouchListener(recyclerItemClickListener);
 
         return root;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        makePlaylist();
+        adapterPlaylist.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        listPlaylist.clear();
+    }
+
     private void makePlaylist(){
-        PlaylistModel model=new PlaylistModel();
-        model.setACTION(1);
-        listPlaylist.add(model);
         DAOplaylist dao=new DAOplaylist(getActivity());
-        listPlaylist.addAll(dao.getPlaylists());
+        List<PlaylistModel> auxList=dao.getPlaylists();
+        if (auxList.isEmpty()){
+            PlaylistModel model=new PlaylistModel();
+            model.setACTION(PlaylistModel.ACTION_CREATE);
+            listPlaylist.add(model);
+        }
+        else {
+            listPlaylist.addAll(dao.getPlaylists());
+        }
     }
 
     private void configRecycler(){
@@ -66,31 +82,5 @@ public class HomeFragment extends Fragment {
         recyclerView=v.findViewById(R.id.recyclerMain);
     }
 
-    private void configRecyclerItemClick(){
-        recyclerItemClickListener= new RecyclerItemClickListener(getActivity(),
-                recyclerView,
-                new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
 
-                    }
-
-                    @Override
-                    public void onLongItemClick(View view, int position) {
-                        DAOplaylist dao=new DAOplaylist(getActivity());
-                        boolean result=dao.deletePlaylist(listPlaylist.get(position).getName());
-                        if (result){
-                            listPlaylist.remove(position);
-                            adapterPlaylist.notifyDataSetChanged();
-                            recyclerView.setAdapter(adapterPlaylist);
-                            Toast.makeText(getActivity(), "SUCESSO AO DELETAR", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                    }
-                });
-    }
 }
