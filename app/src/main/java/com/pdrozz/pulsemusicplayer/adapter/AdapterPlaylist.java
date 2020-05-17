@@ -15,9 +15,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.pdrozz.pulsemusicplayer.R;
 import com.pdrozz.pulsemusicplayer.activity.CreatePlaylistActivity;
+import com.pdrozz.pulsemusicplayer.activity.PlayerActivity;
 import com.pdrozz.pulsemusicplayer.activity.PlaylistActivity;
 import com.pdrozz.pulsemusicplayer.model.PlaylistModel;
 import com.pdrozz.pulsemusicplayer.sqlHelper.DAOplaylist;
+import com.pdrozz.pulsemusicplayer.utils.PlayerManager;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,7 +32,7 @@ public class AdapterPlaylist extends RecyclerView.Adapter<AdapterPlaylist.ViewHo
 
     private List<PlaylistModel> listPlaylist=new ArrayList<>();
     private Activity activity;
-    private View.OnClickListener onClickCriar;
+    private View.OnClickListener onClickPlay;
     private View.OnClickListener onClickAbrir;
     private Intent action;
     private AlertDialog alertDialog;
@@ -92,15 +94,6 @@ public class AdapterPlaylist extends RecyclerView.Adapter<AdapterPlaylist.ViewHo
         return listPlaylist.size();
     }
 
-    private void configOnClickListenerCriar(){
-        onClickCriar=new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        };
-    }
-
     public class ViewHolderPlaylist extends RecyclerView.ViewHolder{
         ImageView imageViewPlaylist;
         TextView textViewNamePlaylist;
@@ -137,6 +130,17 @@ public class AdapterPlaylist extends RecyclerView.Adapter<AdapterPlaylist.ViewHo
                 activity.startActivity(action);
             }
         });
+    }
+    private void configPlayClick(){
+        onClickPlay=new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent player=new Intent(activity, PlayerActivity.class);
+                player.putExtra(PlaylistActivity.NAME_PLAYLIST, PlayerManager.currentPlaylistName);
+                player.putExtra(PlaylistActivity.MUSIC_ITEM,PlayerManager.currentPlaylistName);
+                player.putExtra(PlaylistActivity.POSITION_ITEM,PlayerManager.currentMusicPosition);
+            }
+        };
     }
 
     private void deletePlaylist(int position){

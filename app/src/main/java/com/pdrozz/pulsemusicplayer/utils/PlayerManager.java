@@ -1,5 +1,6 @@
 package com.pdrozz.pulsemusicplayer.utils;
 
+import android.app.NotificationManager;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -32,10 +33,17 @@ public class PlayerManager {
     public static String currentPlaylistName=null;
     public static int currentMusicPosition;
     public static int playlistSize;
+    public static Context currentNotificationContext;
     //timer
     static Timer timer=new Timer();
     static Random random=new Random();
     static List<Integer> played=new ArrayList<>();
+    static int[] ints;
+
+
+    public static void setCurrentNotificationContext(Context c){
+        PlayerManager.currentNotificationContext=c;
+    }
 
     public static void setListMusic(List<MusicModel> listMusic) {
         PlayerManager.listMusic = listMusic;
@@ -50,26 +58,42 @@ public class PlayerManager {
         return mediaPlayer;
     }
 
-    public static void playShuffle(){
-        int i=random.nextInt(playlistSize);
-        PlayerManager.currentMusicPosition=i;
-        played.add(i);
-        if (played.contains(i)){
+    public static void queue(){
+        if (validate()){
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
 
+                }
+            });
         }
     }
 
+    public static void playShuffle(){
+        ints=new int[playlistSize];
+        int newInt;
+        while (played.size()<playlistSize){
+            do {
+                newInt=random.nextInt(playlistSize);
+            }while (!played.contains(newInt));
+                played.add(newInt);
+            }
+    }
+
     static void createNotificationPlaying(Context context){
+        setCurrentNotificationContext(context);
         NotificationUtil.createNotification(context, listMusic.get(PlayerManager.currentMusicPosition),
                 R.drawable.ic_pause, PlayerManager.currentMusicPosition,playlistSize);
     }
 
     static void createNotificationPaused(Context context){
+        setCurrentNotificationContext(context);
         NotificationUtil.createNotification(context, listMusic.get(PlayerManager.currentMusicPosition),
                 R.drawable.ic_play, PlayerManager.currentMusicPosition,playlistSize);
     }
 
     public static void startMusic(Context context,int POSITION){
+        release();
         MediaPlayer media=MediaPlayer.create(context, Uri.parse(listMusic.get(POSITION).getPath()));
         PlayerManager.setMediaPlayer(media,"");
         PlayerManager.currentMusic=listMusic.get(POSITION);
@@ -81,6 +105,10 @@ public class PlayerManager {
 
     public static void setQueueMusicModel(){
         PlayerManager.currentMusic=listMusic.get(PlayerManager.currentMusicPosition);
+    }
+
+    public static void playSuffle(){
+
     }
 
     public static void next(Context context){
@@ -195,6 +223,24 @@ public class PlayerManager {
         if (validate()){
             mediaPlayer.start();
         }
+    }
+
+    public static void cancelNotificationPlayer(){
+        NotificationManager notificationManager;
+        notificationManager=currentNotificationContext.getSystemService(NotificationManager.class);
+        notificationManager.cancel(1);
+    }
+
+    public static void releaseClass(){
+        PlayerManager.mediaPlayer=null;
+        PlayerManager.listMusic=null;
+        PlayerManager.currentMusic=null;
+        PlayerManager.currentPlaylistName=null;
+        PlayerManager.currentNotificationContext=null;
+        PlayerManager.timer=null;
+        PlayerManager.random=null;
+        PlayerManager.played=null;
+        PlayerManager.ints=null;
     }
 
 }
