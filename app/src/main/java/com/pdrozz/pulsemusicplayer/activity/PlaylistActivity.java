@@ -43,6 +43,7 @@ public class PlaylistActivity extends AppCompatActivity {
     private ImageView imagePlaylist;
     private TextView textName,textAddMusics;
     private FloatingActionButton floatAdd;
+    private FloatingActionButton floatPlay;
     private ProgressBar progressBar;
     //BarPlayer Widgets
     private TextView name,artist;
@@ -101,6 +102,12 @@ public class PlaylistActivity extends AppCompatActivity {
                 Intent i=new Intent(PlaylistActivity.this,FilesActivity.class);
                 i.putExtra(NAME_PLAYLIST,playlist.getName());
                 startActivity(i);
+            }
+        });
+        floatPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startPlayer(0);
             }
         });
     }
@@ -193,16 +200,21 @@ public class PlaylistActivity extends AppCompatActivity {
         adapter=new AdapterMusicFiles(listMusic,this);
         recyclerFiles.setAdapter(adapter);
     }
+
+    private void startPlayer(int position){
+        Intent i=new Intent(PlaylistActivity.this, PlayerActivity.class);
+        i.putExtra(MUSIC_ITEM,listMusic.get(position));
+        i.putExtra(NAME_PLAYLIST,playlist.getName());
+        i.putExtra(POSITION_ITEM,position);
+        startActivity(i);
+    }
+
     private void configRecyclerClick(){
         recyclerItemClickListener=new RecyclerItemClickListener(this, recyclerFiles,
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        Intent i=new Intent(PlaylistActivity.this, PlayerActivity.class);
-                        i.putExtra(MUSIC_ITEM,listMusic.get(position));
-                        i.putExtra(NAME_PLAYLIST,playlist.getName());
-                        i.putExtra(POSITION_ITEM,position);
-                        startActivity(i);
+                        startPlayer(position);
                     }
 
                     @Override
@@ -219,6 +231,8 @@ public class PlaylistActivity extends AppCompatActivity {
 
     private void configWidgets(){
         floatAdd=findViewById(R.id.floatAdd);
+        floatPlay=findViewById(R.id.floatPlay);
+
         imagePlaylist=findViewById(R.id.imagePlaylist);
         textName=findViewById(R.id.textViewNamePlaylist);
         progressBar=findViewById(R.id.progressBar);

@@ -1,21 +1,31 @@
 package com.pdrozz.pulsemusicplayer.activity;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pdrozz.pulsemusicplayer.R;
 import com.pdrozz.pulsemusicplayer.adapter.PagerAdapterPlayer;
@@ -23,6 +33,7 @@ import com.pdrozz.pulsemusicplayer.model.MusicModel;
 import com.pdrozz.pulsemusicplayer.model.PlaylistModel;
 import com.pdrozz.pulsemusicplayer.notification.NotificationUtil;
 import com.pdrozz.pulsemusicplayer.sqlHelper.DAOplaylist;
+import com.pdrozz.pulsemusicplayer.utils.PermissionUtil;
 import com.pdrozz.pulsemusicplayer.utils.PlayerManager;
 
 import java.util.ArrayList;
@@ -33,10 +44,12 @@ import java.util.TimerTask;
 public class PlayerActivity extends AppCompatActivity {
 
     public static String GET_ACTION="get_action";
+    public static final int ONLY_OPEN=3;
 
     private ViewPager viewPager;
     private TextView txtCurrentTime,txtTotalTime;
     private ImageButton btnPlayPause,btnNext,btnPrevious;
+    private Button btnVibe;
     private SeekBar seekBar;
 
     private PagerAdapterPlayer adapter;
@@ -63,38 +76,33 @@ public class PlayerActivity extends AppCompatActivity {
         getBundleValues();
         configBtnPlayOnClick();
 
-        btnPlayPause.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                PlayerManager.release();
-                return false;
-            }
-        });
-
         daOplaylist=new DAOplaylist(this);
         listMusic=daOplaylist.getPlaylistItems(NAME_PLAYLIST);
 
         configViewPager();
 
-        if (!PlayerManager.isPlaying()){
-            PlayerManager.setListMusic(listMusic);
-            PlayerManager.setCurrentPlaylistName(NAME_PLAYLIST);
-            PlayerManager.startMusic(this,POSITION);
-        }else if(POSITION!=PlayerManager.currentMusicPosition){
-            PlayerManager.setListMusic(listMusic);
-            PlayerManager.setCurrentPlaylistName(NAME_PLAYLIST);
-            PlayerManager.startMusic(this,POSITION);
-        }
-
+        if (ACTION!=ONLY_OPEN){
+            if (!PlayerManager.isPlaying()){
+                PlayerManager.setListMusic(listMusic);
+                PlayerManager.setCurrentPlaylistName(NAME_PLAYLIST);
+                PlayerManager.startMusic(this,POSITION);
+            }else if(POSITION!=PlayerManager.currentMusicPosition){
+                PlayerManager.setListMusic(listMusic);
+                PlayerManager.setCurrentPlaylistName(NAME_PLAYLIST);
+                PlayerManager.startMusic(this,POSITION);
+        }}
         configSeekBar();
         configTimer();
         configSeekBarClick();
         configPlayQueue();
+        switchPlayImage();
 
         //WidgetsListeners
         configNexttOnClick();
         configBtnPlayOnClick();
         configPreviousOnClick();
+        configVibeClick();
+
 
         //broadcast
         configBroadCast();
@@ -136,12 +144,65 @@ public class PlayerActivity extends AppCompatActivity {
         });
     }
 
+    private void configVibeClick(){
+        btnVibe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean haverPermission= ContextCompat.checkSelfPermission(PlayerActivity.this,Manifest.permission.RECORD_AUDIO)
+                        == PackageManager.PERMISSION_GRANTED;
+                if (!haverPermission){
+                    showAlertVibe();
+                }
+                else{
+                    Intent intentVibe=new Intent(PlayerActivity.this,VibeActivity.class);
+                    intentVibe.putExtra("name",musicModel.getName());
+                    startActivity(intentVibe);
+                }
+
+            }
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        for(int result:grantResults){
+            if (result==RESULT_OK){
+                startActivity(new Intent(this,VibeActivity.class));
+            }else{
+                Toast.makeText(this, "Você precisa aceitar as permissões para utilizar todos os recursos", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void showAlertVibe(){
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setTitle("Permissões para o modo Vibe");
+        builder.setMessage("O modo vibe precisa da permissão de áudio para poder criar e gerir o visualizador");
+        builder.setPositiveButton("Concordo", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String[] permissao={Manifest.permission.RECORD_AUDIO};
+                PermissionUtil.getPermission(permissao,PlayerActivity.this,300);
+            }
+        });
+        builder.setNegativeButton("Não concordo", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.show();
+    }
+
     private void configPlayQueue(){
         PlayerManager.getMediaPlayer().setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                PlayerActivity.this.POSITION++;
-                startMusic("PlayQueue");
+                if (PlayerActivity.this.POSITION<PlayerManager.playlistSize){
+                    PlayerActivity.this.POSITION++;
+                    startMusic("PlayQueue");
+                }
             }
         });
     }
@@ -290,6 +351,7 @@ public class PlayerActivity extends AppCompatActivity {
         txtTotalTime=findViewById(R.id.txtTotalTime);
 
         btnPlayPause=findViewById(R.id.btnPlayPause);
+        btnVibe=findViewById(R.id.btnVibe);
         btnNext=findViewById(R.id.btnNext);
         btnPrevious=findViewById(R.id.btnPrevious);
 

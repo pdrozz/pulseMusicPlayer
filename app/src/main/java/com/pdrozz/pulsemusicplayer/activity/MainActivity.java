@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
 
         configBroadCast();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            createChannel();
             registerReceiver(broadcastReceiver, new IntentFilter("MUSICS_PULSE"));
         }
 
@@ -79,31 +78,19 @@ public class MainActivity extends AppCompatActivity {
                 String action=intent.getExtras().getString("actionname");
                 switch (action){
                     case NotificationUtil.ACTION_NEXT:
-                        next();
                         setValuesBottomPlayerWidgets();
                         break;
                     case NotificationUtil.ACTION_PLAY:
-                        playOrPause();
+                        setValuesBottomPlayerWidgets();
                         break;
                     case NotificationUtil.ACTION_PREVIUOS:
-                        previous();
+                        setValuesBottomPlayerWidgets();
                         break;
                 }
             }
         };
     }
 
-    private void playOrPause(){
-        PlayerManager.playPause(getApplicationContext());
-    }
-
-    private void next(){
-        PlayerManager.next(getApplicationContext());
-    }
-
-    private void previous(){
-        PlayerManager.previous(getApplicationContext());
-    }
 
     @Override
     protected void onStart() {
@@ -123,22 +110,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(broadcastReceiver);
-        PlayerManager.release();
-
-    }
-
-    private void createChannel(){
-        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
-            NotificationChannel channel=
-                new NotificationChannel(NotificationUtil.CHANNEL_ID,
-                        "CHANEL_PULSE",
-                        NotificationManager.IMPORTANCE_LOW);
-
-            notificationManager=getSystemService(NotificationManager.class);
-            if (notificationManager != null){
-                notificationManager.createNotificationChannel(channel);
-            }
-        }
     }
 
     private void configBottomPlayerWidgets(){
@@ -199,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
         player.putExtra(PlaylistActivity.NAME_PLAYLIST,PlayerManager.currentPlaylistName);
         player.putExtra(PlaylistActivity.MUSIC_ITEM,PlayerManager.currentPlaylistName);
         player.putExtra(PlaylistActivity.POSITION_ITEM,PlayerManager.currentMusicPosition);
+        player.putExtra(PlayerActivity.GET_ACTION, PlayerActivity.ONLY_OPEN);
         startActivity(player);
     }
 
